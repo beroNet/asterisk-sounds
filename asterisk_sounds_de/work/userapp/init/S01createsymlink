@@ -1,0 +1,27 @@
+#!/bin/sh
+# Creating symlink for asterisk sound-files
+
+tgt_dir=/apps/asterisk/var/lib/asterisk
+src_dir=/apps/asterisk_sounds/lib/asterisk/sounds
+
+case "${1}" in
+	start)
+		echo -n "Enabling asterisk-sounds (de): "
+		if [ ! -d ${tgt_dir} ]; then
+			mkdir -p ${tgt_dir}
+		fi
+		ln -s ${src_dir} ${tgt_dir}/sounds
+		echo "Done."
+		;;
+	stop)
+		echo -n "Disabling asterisk-sounds (de): "
+		rm -f ${tgt_dir}/sounds
+		echo "Done."
+		;;
+	restart)
+		;;
+	*)
+		echo "Usage ${0} [start|stop|restart]"
+		exit 1
+		;;
+esac
